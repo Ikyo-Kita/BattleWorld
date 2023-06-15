@@ -3,6 +3,9 @@
 #include<iostream>
 
 
+#include"Renderer/ShaderProgram.h"
+
+
 GLfloat point[] = {//Vector for vertex shader
     0.0f,0.5f,0.0f,
     0.5f,-0.5f,0.0f,
@@ -55,7 +58,7 @@ void glfwKeyCallback(GLFWwindow* pWindow, int key, int scancode, int action, int
 
 int main(void)
 {
-    
+
     GLFWwindow* pWindow;
 
     /* Initialize the library */
@@ -65,10 +68,10 @@ int main(void)
         return -1;
     }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,6);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     /* Create a windowed mode window and its OpenGL context */
-    pWindow = glfwCreateWindow(windowSizeX, windowSizeY, "BattleWorld",nullptr, nullptr);
+    pWindow = glfwCreateWindow(windowSizeX, windowSizeY, "BattleWorld", nullptr, nullptr);
     if (!pWindow)
     {
         std::cout << "glfwCreateWindow Error" << std::endl;
@@ -91,28 +94,21 @@ int main(void)
         std::cout << "Can`t load GLAD!" << std::endl;
         return -1;
     }
-    std::cout << "Video Card " << glGetString(GL_RENDERER) << std::endl;//Showing a model video card
+    std::cout << "Video Card " << glGetString(GL_RENDERER) << std::endl; ;//Showing a model video card
     std::cout << "OpenGL version " << glGetString(GL_VERSION) << std::endl;//Showing the version OpenGL
+
+    glClearColor(1, 1, 0, 1);
+
+
+    std::string vertexShader(vertex_shader);
+    std::string fragmentShader(fragment_shader);
+    Renderer::ShaderProgram shaderProgram(vertexShader, fragmentShader);
+    if (!shaderProgram.isCompiled())
+    {
+        std::cerr << "Can`t create shader program!" << std::endl;
+        return -1;
+    }
     
-
-    glClearColor(1, 0, 1, 1);
-
-    GLuint vs = glCreateShader(GL_VERTEX_SHADER);//Create the vertex shader
-    glShaderSource(vs, 1, &vertex_shader, nullptr);
-    glCompileShader(vs);//Compile the vertex shader
-
-    GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);//Create the fragment shader
-    glShaderSource(fs, 1, &fragment_shader, nullptr);
-    glCompileShader(fs);//Compile the fragment shader
-
-    GLuint shader_program =glCreateProgram();
-    glAttachShader(shader_program, vs);
-    glAttachShader(shader_program, fs);
-    
-    glLinkProgram(shader_program);
-   
-    glDeleteShader(vs);//Delete the vertex shader
-    glDeleteShader(fs);//Delete the fragment shader
 
     GLuint point_vbo = 0;
     glGenBuffers(1, &point_vbo);//Generation the vertex buffer
@@ -130,8 +126,8 @@ int main(void)
 
     glEnableVertexAttribArray(0); //bundle vertex the shader
     glBindBuffer(GL_ARRAY_BUFFER, point_vbo);
-    glVertexAttribPointer(0, 3,GL_FLOAT,GL_FALSE,0,nullptr);
-   
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+
     glEnableVertexAttribArray(1);//bundle fragment the shader
     glBindBuffer(GL_ARRAY_BUFFER, color_vbo);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
@@ -143,9 +139,9 @@ int main(void)
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glUseProgram(shader_program);//Linking the shaders
+        shaderProgram.use();
         glBindVertexArray(vao);
-        glDrawArrays(GL_TRIANGLES, 0,3);//Drawn from the shaders
+        glDrawArrays(GL_TRIANGLES, 0, 3);//Drawn from the shaders
 
 
         /* Swap front and back buffers */

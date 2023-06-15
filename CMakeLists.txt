@@ -2,7 +2,11 @@ cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 set(PROJECT_NAME BattleWorld)
 project(${PROJECT_NAME})
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME}
+	src/main.cpp
+	src/Renderer/ShaderProgram.cpp
+	src/Renderer/ShaderProgram.h
+)
 
 
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
