@@ -11,11 +11,11 @@ ResourceManager::ResourceManager(const std::string& executablePath)
 
 	m_path = executablePath.substr(0, found);
 }
-
+/*The realization the method getFileString annoucmented in ResourceManager.h*/
 std::string ResourceManager::getFileString(const std::string& relativeFilePath) const
 {
 	std::ifstream f;
-	f.open(m_path + "/" + relativeFilePath.c_str(), std::ios::in | std::ios::binary);
+	f.open(m_path + "/" + relativeFilePath.c_str(), std::ios::in | std::ios::binary);//Open source shaders 
 	if (!f.is_open() )
 	{
 		std::cerr << "ERROR Open file: " << relativeFilePath << std::endl;
@@ -26,6 +26,7 @@ std::string ResourceManager::getFileString(const std::string& relativeFilePath) 
 	buffer << f.rdbuf();
 	return buffer.str();
 }
+/*The realization the method loadShaders annoucmented in ResourceManager.h*/
 std::shared_ptr<Renderer::ShaderProgram>ResourceManager::loadShaders(const std::string& shaderName, const std::string& vertexPath, const std::string& fragmentPath)
 {
 	std::string vertexString = getFileString(vertexPath);
@@ -52,7 +53,7 @@ std::shared_ptr<Renderer::ShaderProgram>ResourceManager::loadShaders(const std::
 
 	return nullptr;
 }
-
+/*The realization the method getShaderProgram annoucmented in ResourceManager.h*/
 std::shared_ptr<Renderer::ShaderProgram>ResourceManager::getShaderProgram(const std::string& shaderName)
 {
 	ShaderProgramsMap::const_iterator it = m_shaderPrograms.find(shaderName);

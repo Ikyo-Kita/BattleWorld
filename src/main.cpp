@@ -84,8 +84,11 @@ int main(int argc,char**argv)
    
 
     {
-        ResourceManager resourceManager(argv[0]);
+        ResourceManager resourceManager(argv[0]);//Create Resource Manager
         auto pDefaultShaderProgram = resourceManager.loadShaders("DefaultShader", "res/shaders/vertex.txt", "res/shaders/fragment.txt");
+        /*
+        Load shaders with help Resource Manager
+        */
         if (!pDefaultShaderProgram)
         {
             std::cerr << "Can`t load shader program  ERROR: " << "DefaultShader" << std::endl;
@@ -121,7 +124,7 @@ int main(int argc,char**argv)
             /* Render here */
             glClear(GL_COLOR_BUFFER_BIT);
 
-            pDefaultShaderProgram->use();
+            pDefaultShaderProgram->use();//Using the shader program
             glBindVertexArray(vao);
             glDrawArrays(GL_TRIANGLES, 0, 3);//Drawn from the shaders
 
