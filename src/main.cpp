@@ -94,7 +94,7 @@ int main(int argc,char**argv)
             std::cerr << "Can`t load shader program  ERROR: " << "DefaultShader" << std::endl;
             return -1;
         }
-     
+        resourceManager.loadTexture("DefaultTexture", "res/textures/map_16x16.png");//Load a texture
         GLuint point_vbo = 0;
         glGenBuffers(1, &point_vbo);//Generation the vertex buffer
         glBindBuffer(GL_ARRAY_BUFFER, point_vbo);
