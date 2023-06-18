@@ -22,6 +22,7 @@ std::string ResourceManager::getFileString(const std::string& relativeFilePath) 
 	if (!f.is_open() )
 	{
 		std::cerr << "ERROR Open file: " << relativeFilePath << std::endl;
+		system("pause");
 		return std::string{};
 	}
 
@@ -36,12 +37,14 @@ std::shared_ptr<Renderer::ShaderProgram>ResourceManager::loadShaders(const std::
 	if (vertexString.empty())
 	{
 		std::cerr << "No vertex shader ERROR!" << std::endl;
+		system("pause");
 		return nullptr;
 	}
 	std::string fragmentxString = getFileString(fragmentPath);
 	if (fragmentxString.empty())
 	{
 		std::cerr << "No fragment shader ERROR!" << std::endl;
+		system("pause");
 		return nullptr;
 	}
 
@@ -53,7 +56,7 @@ std::shared_ptr<Renderer::ShaderProgram>ResourceManager::loadShaders(const std::
 	std::cerr << "Can`t load shader program ERROR: \n"
 		<< "Vertex: " << vertexPath << "\n"
 		<< "Fragment: " << fragmentPath << std::endl;
-
+	system("pause");
 	return nullptr;
 }
 /*The realization the method getShaderProgram of class ResourceManager annoucmented in ResourceManager.h*/
@@ -65,9 +68,8 @@ std::shared_ptr<Renderer::ShaderProgram>ResourceManager::getShaderProgram(const 
 		return it->second;
 	}
 	std::cerr << "Can`t find the shader program ERROR: " << shaderName << std::endl;
+	system("pause");
 	return nullptr;
-
-
 };
 /*The realization the loadTexture method of class ResourceManager annoucemented at ResourceManager.h*/
 std::shared_ptr<Renderer::Texture2D>ResourceManager::loadTexture(const std::string& textureName, const std::string& texturePath)
@@ -83,6 +85,7 @@ std::shared_ptr<Renderer::Texture2D>ResourceManager::loadTexture(const std::stri
 
 	if (!pixels) {
 		std::cerr << "Load texture ERROR: " << textureName << std::endl;
+		system("pause");
 		return nullptr;
 	}
 	std::shared_ptr<Renderer::Texture2D> newTexture = m_textures.emplace(textureName,
@@ -104,7 +107,7 @@ std::shared_ptr<Renderer::Texture2D>ResourceManager::getTexture(const std::strin
 		return it->second;
 	}
 	std::cerr << "Can`t find the texture ERROR: " << textureName << std::endl;
+	system("pause");
 	return nullptr;
-
 
 }

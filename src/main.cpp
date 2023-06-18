@@ -47,6 +47,7 @@ int main(int argc,char**argv)
     if (!glfwInit()) {
 
         std::cout << "glfw Error" << std::endl;
+        system("pause");
         return -1;
     }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -57,7 +58,9 @@ int main(int argc,char**argv)
     if (!pWindow)
     {
         std::cout << "glfwCreateWindow Error" << std::endl;
+
         glfwTerminate();
+        system("pause");
         return -1;
     }
 
@@ -74,6 +77,7 @@ int main(int argc,char**argv)
     if (!gladLoadGL()) {//Showing load Error GLAB library 
 
         std::cout << "Can`t load GLAD!" << std::endl;
+        system("pause");
         return -1;
     }
     std::cout << "Video Card " << glGetString(GL_RENDERER) << std::endl; ;//Showing a model video card
@@ -92,6 +96,7 @@ int main(int argc,char**argv)
         if (!pDefaultShaderProgram)
         {
             std::cerr << "Can`t load shader program  ERROR: " << "DefaultShader" << std::endl;
+            system("pause");
             return -1;
         }
         resourceManager.loadTexture("DefaultTexture", "res/textures/map_16x16.png");//Load a texture

@@ -11,6 +11,7 @@ namespace Renderer
 		if (!createShader(vertexShader, GL_VERTEX_SHADER,vertexShaderID))/*The compile vertex shader error*/
 		{
 			std::cerr << "VERTEX SHADER COMPILE ERROR" << std::endl;
+			system("pause");
 			return;
 		}
 		GLuint fragmentShaderID;
@@ -18,6 +19,7 @@ namespace Renderer
 		{
 			std::cerr << "FRAGMENT SHADER COMPILE ERROR" << std::endl;
 			glDeleteShader(vertexShaderID);
+			system("pause");
 			return;
 		}
 
@@ -32,6 +34,7 @@ namespace Renderer
 			GLchar infolog[1024];
 			glGetShaderInfoLog(m_ID, 1024, nullptr, infolog);
 			std::cerr << "ERROR SHADER LINK error:\n " << infolog << std::endl;
+			system("pause");
 			
 		}
 		else
@@ -55,6 +58,7 @@ namespace Renderer
 			GLchar infolog[1024];
 			glGetShaderInfoLog(shaderID, 1024, nullptr,infolog);
 			std::cerr << "ERROR SHADER COMPILE error:\n " << infolog << std::endl;
+			system("pause");
 			return false;
 		}
 		return true;	
