@@ -1,5 +1,5 @@
 #include "ShaderProgram.h"
-
+#include<glm/gtc/type_ptr.hpp>
 #include <iostream>
 namespace Renderer 
 {
@@ -97,5 +97,11 @@ namespace Renderer
 	{
 		glUniform1i(glGetUniformLocation(m_ID,name.c_str()),value);
 	}
+
+	void ShaderProgram::setmatrix4(const std::string& name, const glm::mat4& matrix)
+	{
+		glUniformMatrix4fv(glGetUniformLocation(m_ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(matrix));
+	}
+
 
 }
