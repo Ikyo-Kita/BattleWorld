@@ -9,6 +9,8 @@ namespace Renderer
 	class Texture2D
 	{
 	public:
+		void TextureParameters(const GLenum& wrapMode, const GLenum& filter);
+		void GenerationTexture(const unsigned char* data);
 		/*The annoucement constructor of class Texture2D*/
 		Texture2D(const GLuint width, const GLuint height,
 			const unsigned  char* data,

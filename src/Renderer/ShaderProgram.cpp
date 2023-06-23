@@ -44,8 +44,8 @@ namespace Renderer
 		glDeleteShader(vertexShaderID);
 		glDeleteShader(fragmentShaderID);
 	}
-	bool ShaderProgram:: createShader(const std::string& source, const GLenum shaderType, GLuint& shaderID)
-		/*The implementation the createShader method announced in ShaderProgram.h*/
+	/*The implementation the createShader method announced in ShaderProgram.h*/
+	bool ShaderProgram:: createShader(const std::string& source, const GLenum shaderType, GLuint& shaderID)		
 	{
 		shaderID= glCreateShader(shaderType);
 		const char* code = source.c_str();//Create char array for source code shaders
